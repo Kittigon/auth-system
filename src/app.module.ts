@@ -7,6 +7,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { postgresql } from './config/postgresql.config';
 
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,6 +18,11 @@ import { postgresql } from './config/postgresql.config';
     TypeOrmModule.forRootAsync(postgresql),
     UserModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService
+    ,{
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule { }
