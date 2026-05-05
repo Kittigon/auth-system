@@ -6,7 +6,7 @@ import { UsersService } from '../user/users.service';
 import { UserRole } from 'src/user/entities/user.entity';
 
 @Injectable()
-export class AuthsService {
+export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
